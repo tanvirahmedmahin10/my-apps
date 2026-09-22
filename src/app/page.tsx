@@ -1,7 +1,12 @@
-import Image from "next/image";
+import TrendingApps from "./components/AppFolder/TrendingApps";
+import Banner from "./components/Banner";
+
 
 export default function Home() {
   return (
-   <h2>HomePage er ghusti</h2>
+    <div>
+   <Banner></Banner>
+   <TrendingApps/>
+   </div>
   );
 }
