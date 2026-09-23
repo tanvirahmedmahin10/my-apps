@@ -65,9 +65,9 @@ const AppCard = ({ app }: { app: IData }) => {
       </div>
 
       <div className='flex gap-4'>
-      <div className="mt-3 text-center w-full rounded-lg bg-blue-600 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-700 active:bg-blue-800">
+      
         <Installation app={app}/>
-      </div>
+      
        <Link href={`/Apps/${id}`} className="mt-3 text-center w-full rounded-lg bg-blue-600 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-700 active:bg-blue-800"><button >
         Details
       </button></Link>
