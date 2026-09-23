@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppsContext } from "../AppsContext/AppsContext";
 import { IData } from "@/data.type";
 import Image from "next/image";
@@ -9,10 +9,37 @@ import UnInstallButton from "../UninstallButton/Uninstall";
 
 const InstallationPage = () => {
   const { isAdded } = useContext(AppsContext);
+  const [sortBy,setSortBy]=useState<'ratingAvg'|'title'|'size'>('ratingAvg')
+  const sorted=(app:IData[])=>{
+  const setApp=[...app]
+  if(sortBy==='ratingAvg'){
+   setApp.sort((a,b)=>b.ratingAvg-a.ratingAvg)
+  }
+  else if(sortBy==='title'){
+    setApp.sort((a,b)=>String(b.companyName).localeCompare(String(a.companyName)))
+  }
+  else if(sortBy==='size'){
+   setApp.sort((a,b)=>b.size-a.size)
+  }
+  return setApp
+  }
 
+  const sortedApp=sorted(isAdded)
   return (
+    <div>
+      <div className="flex justify-center p-3">
+    <select
+    value={sortBy}
+    onChange={(e)=>setSortBy(e.target.value as 'ratingAvg'|'title'|'size')}
+    className="select select-success">
+  <option disabled={true}>Pick a Runtime</option>
+  <option value={'ratingAvg'}>Rating</option>
+  <option value={'title'}>Title</option>
+  <option value={'size'}>Size</option>
+</select>
+</div>
     <div className="max-w-2xl mx-auto p-4 space-y-4">
-      {isAdded?.map((data: IData) => (
+      {sortedApp.map((data: IData) => (
         <div 
           key={data.id} 
           className="group relative flex flex-col sm:flex-row items-center justify-between bg-white/80 backdrop-blur-md rounded-2xl p-4 shadow-sm hover:shadow-xl border border-gray-100 hover:border-indigo-100 transition-all duration-300 gap-4"
@@ -50,6 +77,9 @@ const InstallationPage = () => {
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-gray-100 font-medium">
                   {data.downloads} downloads
                 </span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-gray-100 font-medium">
+                  {data.size} MB
+                </span>
 
                 {/* Size */}
                 {data.size && (
@@ -75,6 +105,7 @@ const InstallationPage = () => {
         
       ))}
       
+    </div>
     </div>
   );
 };
