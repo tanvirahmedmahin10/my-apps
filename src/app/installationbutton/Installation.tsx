@@ -15,9 +15,7 @@ const Installation = ({app}:{app:IData}) => {
    toast.success("entered")}
     }
     return (
-        
             <button  className={`${isAdded.some(item=>item.id===app.id)?"mt-3 text-center w-full rounded-lg bg-blue-100 cursor-not-allowed ":"mt-3 text-center w-full rounded-lg bg-blue-600 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-700 active:bg-blue-800"}`} onClick={handleOnClick}>{isAdded.some(item=>item.id===app.id)?'Installed':"Install"}</button>
-        
     );
 };
 
